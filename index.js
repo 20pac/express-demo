@@ -1,9 +1,24 @@
+const config = require("config");
 const express = require("express");
 const Joi = require("joi");
+const logger = require("./logger");
 const app = express();
 
 //Middleware to parse body
-app.use(express.json());
+//These middlewares are called in sequence
+
+app.use(express.json()); //Populates request body
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public")); //Serves static content in public folder
+
+app.use(logger);
+
+//Getting configuration settings using config
+console.log(config.get("name"));
+
+//Set view engine
+app.set("view engine", "pug");
+app.set("views", "./views"); //path to views
 
 const courses = [
   {
@@ -25,7 +40,7 @@ const courses = [
 ];
 
 app.get("/", (req, res) => {
-  res.send("<h1>Hello World!!</h1>");
+  res.render("index", { title: "My express app", message: "Hello Bokra" }); //Pug template (template name, {template argusments})
 });
 
 app.get("/api/courses", (req, res) => {

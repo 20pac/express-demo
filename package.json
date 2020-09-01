@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "config": "^3.3.1",
     "express": "^4.17.1",
-    "joi": "^17.2.1"
+    "joi": "^17.2.1",
+    "pug": "^3.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
